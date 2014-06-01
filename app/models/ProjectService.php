@@ -13,6 +13,11 @@
  */
 class ProjectService implements ProjectServiceInterface
 {
+    public function getValidatorRules()
+    {
+        return [];
+    }
+    
     public function fetchAll($query)
     {
         $paramValues = [];

@@ -43,7 +43,7 @@ class ProjectController extends \BaseController {
 	{
         $model = new stdClass();
         $input = Input::all();
-        $validator = Validator::make($input, $model->validatorRules);
+        $validator = Validator::make($input, $this->projects->getValidatorRules());
         // chcek for private land and it's theirs check box for foraging stuff
         $project = $this->projects->create($data);
         $this->projects->save($project);
