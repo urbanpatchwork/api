@@ -179,10 +179,6 @@ class ProjectService implements ProjectServiceInterface
         $newId = DB::table($table)->insertGetId($data);
         
         // laraval doesn't do expressions well in above syntax, so do it seperate!
-        DB::update('update ' . $table . " set location = ST_GeomFromText('POINT(? ?)') where id = ?", [
-            $project->longitude, 
-            $project->latitude, 
-            $newId
-        ]);
+        DB::connection()->getPdo()->exec('update ' . $table . " set location = ST_GeomFromText('POINT(".(float)$project->longitude . ' '. (float)$project->latitude . ")') where id = " . (int)$newId);
     }
 }
