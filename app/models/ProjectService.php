@@ -77,7 +77,7 @@ class ProjectService implements ProjectServiceInterface
     public function fetch($id)
     {
         $where = ' where project.id = ?';
-        $select = ' select project.*, ST_AsText(location) as location'
+        $select = ' select project.*, ST_AsText(location) as location, '
                 . '        cat.name as category_name ';
         $from   = ' from   project ';
         $joins  = ' left join project_category as cat '
