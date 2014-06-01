@@ -25,7 +25,7 @@ class ProjectService implements ProjectServiceInterface
     {
         $paramValues = [];
         $where  = ' where 1=1 ';
-        $select = ' select project.*, '
+        $select = ' select project.*, ST_AsText(location) as location, '
                 . '        cat.name as category_name ';
         $from   = ' from   project ';
         $joins  = ' left join project_category as cat '
@@ -65,7 +65,7 @@ class ProjectService implements ProjectServiceInterface
         $sql = $select . $from . $joins . $where;
         $rawProjects = DB::select($sql, $paramValues);
         
-        $select = ' select project.*, \'Foraging\' as category_name ';
+        $select = ' select project.*, \'Foraging\' as category_name, ST_AsText(location) as location';
         $from   = ' from   foraging as project ';
         $forageSql = $select . $from . $where;
         $rawForageSites = DB::select($forageSql, $paramValues);
