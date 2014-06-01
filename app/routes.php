@@ -16,7 +16,10 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
-Route::resource('project', 'ProjectController');
+Route::group(array('prefix' => 'api'), function()
+{
+    Route::resource('project', 'ProjectController');
 
-Route::resource('category', 'CategoryController',
-                array('only' => array('index', 'show')));
+    Route::resource('category', 'CategoryController',
+                    array('only' => array('index', 'show')));
+});

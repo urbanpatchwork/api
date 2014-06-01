@@ -10,7 +10,7 @@
  *
  * @author Rob
  */
-interface ProjectsServiceInterface {
-    public function fetchAll();
-    public function fetch($query);
+interface ProjectServiceInterface {
+    public function fetchAll($query);
+    public function fetch($id);
 }

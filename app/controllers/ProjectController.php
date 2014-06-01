@@ -8,6 +8,16 @@ class ProjectController extends \BaseController {
         'radius' => 'numeric',
     );
     
+    /**
+     * @var ProjectServiceInterface $projects
+     */
+    public $projects;
+    
+    public function __construct(ProjectServiceInterface $projectsService) 
+    {
+        $this->projects = $projectsService;
+    }
+    
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,9 +28,10 @@ class ProjectController extends \BaseController {
         $input = Input::all();
         $allowedParams = Validator::make($input, $this->paramValidators);
         if ($allowedParams->fails()) {
-            return 'invalid';
+            return 'invalid params';
         }
-		return '';
+        $results = $this->projects->fetchAll($input);
+		return 'ok' . count($results);
 	}
 
 	/**
@@ -36,13 +47,15 @@ class ProjectController extends \BaseController {
         // location for everything "miller park" or whatever
         // long lat
         // chcek for private land and it's theirs check box for forraging stuff
+        $service = 
         $data = array(
             'securityHash' => $project->adminHash
         );
-		Mail::send('emails.new-project', $data, function($message)
-        {
-            $message->to('email_just_given@example.com', $owner->name)->subject('Welcome!');
-        });
+        return 'ok, added';
+//		Mail::send('emails.new-project', $data, function($message)
+//        {
+//            $message->to('email_just_given@example.com', $owner->name)->subject('Welcome!');
+//        });
 	}
 
 
@@ -54,7 +67,8 @@ class ProjectController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return '';
+		$results = $this->projects->fetch($id);
+		return 'ok' . count($results);
 	}
 
 

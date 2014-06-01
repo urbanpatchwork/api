@@ -4,10 +4,8 @@
  *
  * @author Rob
  */
-class ForageSite {
-    public $id;
-    public $name;
-    public $location;
-    public $address;
+class ForageSite extends Project 
+{
     public $isOnPrivateLand;
+    public $category = 'Foraging';
 }

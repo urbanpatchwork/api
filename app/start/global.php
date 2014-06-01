@@ -88,3 +88,10 @@ Validator::extend('longlat', function($attribute, $value, $parameters)
     $latOk = ($lat >= -90 && $lat <= 90);
     return $longOk && $latOk;
 });
+
+//App::bind('foo', function($app)
+//{
+//    return new FooBar;
+//});
+
+App::bind('ProjectServiceInterface', 'ProjectService');
