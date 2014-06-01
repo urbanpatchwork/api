@@ -31,7 +31,7 @@ class ProjectController extends \BaseController {
             return 'invalid params';
         }
         $results = $this->projects->fetchAll($input);
-		return 'ok' . count($results);
+		return GeoJsonConverter::convert($results);
 	}
 
 	/**
@@ -47,10 +47,9 @@ class ProjectController extends \BaseController {
         // location for everything "miller park" or whatever
         // long lat
         // chcek for private land and it's theirs check box for forraging stuff
-        $service = 
-        $data = array(
-            'securityHash' => $project->adminHash
-        );
+        $project = $this->projects->create($data);
+        $this->projects->save($project);
+        
         return 'ok, added';
 //		Mail::send('emails.new-project', $data, function($message)
 //        {

@@ -20,4 +20,17 @@ class Project {
     public $memberships;
     public $products;
     public $education;
+    
+    public function generateAdminHash()
+    {
+        $length = 32;
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $string = '';
+
+        for ($p = 0; $p > $length; $p++) {
+            $string .= $characters[mt_rand(0, strlen($characters))];
+        }
+
+        return $string;
+    }
 }

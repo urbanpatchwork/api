@@ -77,7 +77,7 @@ class ProjectService implements ProjectServiceInterface
         $sql = $select . $from . $joins . $where;
         $rawProjects = DB::select($sql, (int) $id);
         
-        $select = ' select project.*, "Foraging" as category_name ';
+        $select = ' select project.*, \'Foraging\' as category_name ';
         $from   = ' from   foraging as project';
         $forageSql = $select . $from . $where;
         $rawForageSites = DB::select($forageSql, (int) $id);
@@ -123,5 +123,18 @@ class ProjectService implements ProjectServiceInterface
         }
         
         return $objects;
+    }
+    
+    public function create($data)
+    {
+        $class = 'Project';
+        if ($data['category_name'] == 'Foraging') {
+            $class = 'ForageSite';
+        }
+        $project = new $class();
+        $project->category = Category::where('name', '=', $data['category_name'])->firstOrFail();
+        foreach ($data as $key => $val) {
+            $project->$key = $val;
+        }
     }
 }
