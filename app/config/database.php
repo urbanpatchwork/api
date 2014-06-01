@@ -66,7 +66,7 @@ return array(
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',
-			'database' => 'database',
+			'database' => 'postgres',
 			'username' => 'postgres',
 			'password' => 'ChangeTheWorld0531',
 			'charset'  => 'utf8',
