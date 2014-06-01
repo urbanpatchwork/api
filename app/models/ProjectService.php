@@ -96,7 +96,7 @@ class ProjectService implements ProjectServiceInterface
             $basicMap = array(
                 'id'=> 'id',
                 'name' => 'name',
-                'category' => 'cat_name',
+                'category' => 'category_name',
                 'acceptingVolunteers' => 'volunteering',
                 'address' => 'address'
             );
