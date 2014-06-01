@@ -104,8 +104,8 @@ class ProjectService implements ProjectServiceInterface
                 $project->$objKey = $obj->$dbKey;
             }
             $coords = explode(',', $obj->location);
-            $project->longitude = $coords[0];
-            $project->latitude = $coords[1];
+            $project->longitude = trim($coords[0], ' ,()');
+            $project->latitude = trim($coords[1], ' ,()');
             $objects[] = $project;
         }
         
@@ -121,8 +121,8 @@ class ProjectService implements ProjectServiceInterface
                 $site->$objKey = $obj->$dbKey;
             }
             $coords = explode(',', $obj->location);
-            $site->longitude = $coords[0];
-            $site->latitude = $coords[1];
+            $site->longitude = trim($coords[0], ' ,()');
+            $site->latitude = trim($coords[1], ' ,()');
             $objects[] = $site;
         }
         

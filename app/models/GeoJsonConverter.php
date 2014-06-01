@@ -26,9 +26,10 @@ class GeoJsonConverter
                 'properties' => []
             ];
             foreach ($obj as $key => $val) {
-                $thing['properties'][$key] = [$val];
+                if ($key == 'latitude' || $key == 'longitude') continue;
+                $thing['properties'][$key] = $val;
             }
-            $converted[] = $thing;
+            $converted['features'][] = $thing;
         }
         
         return json_encode($converted);
