@@ -13,5 +13,5 @@
  */
 class Category extends Eloquent 
 {
-    protected $table = 'project_categories';
+    protected $table = 'project_category';
 }
