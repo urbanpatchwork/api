@@ -85,7 +85,7 @@ class ProjectService implements ProjectServiceInterface
         $sql = $select . $from . $joins . $where;
         $rawProjects = DB::select($sql, [(int) $id]);
         
-        $select = ' select project.*, \'Foraging\' as category_name ';
+        $select = ' select project.*, \'Foraging\' as category_name, ST_AsText(location) as location,  ';
         $from   = ' from   foraging as project';
         $forageSql = $select . $from . $where;
         $rawForageSites = DB::select($forageSql, [(int) $id]);
