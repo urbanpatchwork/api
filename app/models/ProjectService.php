@@ -15,7 +15,10 @@ class ProjectService implements ProjectServiceInterface
 {
     public function getValidatorRules()
     {
-        return [];
+        return [
+            'name' => 'required',
+            'category_name' => 'required'
+        ];
     }
     
     public function fetchAll($query)
