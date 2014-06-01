@@ -148,6 +148,7 @@ class ProjectService implements ProjectServiceInterface
         foreach ($data as $key => $val) {
             $project->$key = $val;
         }
+        return $project;
     }
     
     public function save($project)
