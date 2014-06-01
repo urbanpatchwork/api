@@ -75,7 +75,7 @@ class ProjectService implements ProjectServiceInterface
         $joins  = ' left join project_category as cat '
                 . '     on project."categoryID" = cat.id ';
         $sql = $select . $from . $joins . $where;
-        $rawProjects = DB::select($sql, (int) $id);
+        $rawProjects = DB::select($sql, [(int) $id]);
         
         $select = ' select project.*, \'Foraging\' as category_name ';
         $from   = ' from   foraging as project';
@@ -97,7 +97,7 @@ class ProjectService implements ProjectServiceInterface
                 'id'=> 'id',
                 'name' => 'name',
                 'category' => 'category_name',
-                'acceptingVolunteers' => 'volunteering',
+                'volunteer' => 'volunteering',
                 'address' => 'address'
             );
             foreach ($basicMap as $objKey => $dbKey) {
@@ -140,5 +140,44 @@ class ProjectService implements ProjectServiceInterface
         foreach ($data as $key => $val) {
             $project->$key = $val;
         }
+    }
+    
+    public function save($project)
+    {
+        if ($project instanceof ForageSite) {
+            $table = 'foraging';
+            $data = [
+                'name' => $project->name,
+                'description' => $project->description,
+                'categoryID' => 1, // this is currently hard coded to the db, but should be handled better
+                'address' => $project->address,
+                'zipcodeId' => 1,
+                'volunteering' => $project->volunteer,
+    //            public $projectCoordinator;
+                'memberships' => $project->memberships,
+                'education' => $project->education
+            ];
+        } else {
+            $table = 'projects';
+            $data = [
+                'name' => $project->name,
+                'description' => $project->description,
+                'categoryID' => $project->category->id,
+                'address' => $project->address,
+                'zipcodeId' => 1,
+                'volunteering' => $project->volunteer,
+    //            public $projectCoordinator;
+                'memberships' => $project->memberships,
+                'education' => $project->education
+            ];
+        }
+        $newId = DB::table('project')->insertGetId($data);
+        
+        // laraval doesn't do expressions well in above syntax, so do it seperate!
+        DB::update('update ' . $table . " set location = ST_GeomFromText('POINT(? ?)') where id = ?", [
+            $project->longitude, 
+            $project->latitude, 
+            $newId
+        ]);
     }
 }

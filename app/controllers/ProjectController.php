@@ -44,9 +44,7 @@ class ProjectController extends \BaseController {
         $model = new stdClass();
         $input = Input::all();
         $validator = Validator::make($input, $model->validatorRules);
-        // location for everything "miller park" or whatever
-        // long lat
-        // chcek for private land and it's theirs check box for forraging stuff
+        // chcek for private land and it's theirs check box for foraging stuff
         $project = $this->projects->create($data);
         $this->projects->save($project);
         
@@ -67,7 +65,7 @@ class ProjectController extends \BaseController {
 	public function show($id)
 	{
 		$results = $this->projects->fetch($id);
-		return 'ok' . count($results);
+		return GeoJsonConverter::convert($results);
 	}
 
 
