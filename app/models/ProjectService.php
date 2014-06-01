@@ -103,7 +103,9 @@ class ProjectService implements ProjectServiceInterface
             foreach ($basicMap as $objKey => $dbKey) {
                 $project->$objKey = $obj->$dbKey;
             }
-            $project->location = explode(',', $obj->location);
+            $coords = explode(',', $obj->location);
+            $project->longitude = $coords[0];
+            $project->latitude = $coords[1];
             $objects[] = $project;
         }
         
@@ -118,7 +120,9 @@ class ProjectService implements ProjectServiceInterface
             foreach ($basicMap as $objKey => $dbKey) {
                 $site->$objKey = $obj->$dbKey;
             }
-            $site->location = explode(',', $obj->location);
+            $coords = explode(',', $obj->location);
+            $site->longitude = $coords[0];
+            $site->latitude = $coords[1];
             $objects[] = $site;
         }
         

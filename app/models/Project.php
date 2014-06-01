@@ -20,6 +20,8 @@ class Project {
     public $memberships;
     public $products;
     public $education;
+    public $longitude;
+    public $latitude;
     
     public function generateAdminHash()
     {
