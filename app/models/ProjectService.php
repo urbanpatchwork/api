@@ -77,7 +77,7 @@ class ProjectService implements ProjectServiceInterface
     public function fetch($id)
     {
         $where = ' where project.id = ?';
-        $select = ' select project.*, '
+        $select = ' select project.*, ST_AsText(location) as location'
                 . '        cat.name as category_name ';
         $from   = ' from   project ';
         $joins  = ' left join project_category as cat '
@@ -111,9 +111,9 @@ class ProjectService implements ProjectServiceInterface
             foreach ($basicMap as $objKey => $dbKey) {
                 $project->$objKey = $obj->$dbKey;
             }
-            $coords = explode(',', $obj->location);
-            $project->longitude = trim($coords[0], ' ,()');
-            $project->latitude = trim($coords[1], ' ,()');
+            $coords = explode(' ', $obj->location);
+            $project->longitude = trim($coords[0], ' ,()POINT');
+            $project->latitude = trim($coords[1], ' ,()POINT');
             $objects[] = $project;
         }
         
@@ -128,9 +128,9 @@ class ProjectService implements ProjectServiceInterface
             foreach ($basicMap as $objKey => $dbKey) {
                 $site->$objKey = $obj->$dbKey;
             }
-            $coords = explode(',', $obj->location);
-            $site->longitude = trim($coords[0], ' ,()');
-            $site->latitude = trim($coords[1], ' ,()');
+            $coords = explode(' ', $obj->location);
+            $site->longitude = trim($coords[0], ' ,()POINT');
+            $site->latitude = trim($coords[1], ' ,()POINT');
             $objects[] = $site;
         }
         
