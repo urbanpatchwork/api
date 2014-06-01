@@ -80,7 +80,7 @@ class ProjectService implements ProjectServiceInterface
         $select = ' select project.*, \'Foraging\' as category_name ';
         $from   = ' from   foraging as project';
         $forageSql = $select . $from . $where;
-        $rawForageSites = DB::select($forageSql, (int) $id);
+        $rawForageSites = DB::select($forageSql, [(int) $id]);
         
         $objects = $this->_makeObjects($rawProjects, $rawForageSites);
         
