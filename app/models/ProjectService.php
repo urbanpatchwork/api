@@ -160,11 +160,7 @@ class ProjectService implements ProjectServiceInterface
                 'description' => $project->description,
                 'categoryID' => 1, // this is currently hard coded to the db, but should be handled better
                 'address' => $project->address,
-                'zipcodeId' => 1,
-                'volunteering' => $project->volunteer,
-    //            public $projectCoordinator;
-                'memberships' => $project->memberships,
-                'education' => $project->education
+                'zipcodeID' => 1
             ];
         } else {
             $table = 'projects';
@@ -173,10 +169,10 @@ class ProjectService implements ProjectServiceInterface
                 'description' => $project->description,
                 'categoryID' => $project->category->id,
                 'address' => $project->address,
-                'zipcodeId' => 1,
+                'zipcodeID' => 1,
                 'volunteering' => $project->volunteer,
     //            public $projectCoordinator;
-                'memberships' => $project->memberships,
+                'membership' => $project->memberships,
                 'education' => $project->education
             ];
         }
