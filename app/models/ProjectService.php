@@ -163,7 +163,7 @@ class ProjectService implements ProjectServiceInterface
                 'zipcodeID' => 1
             ];
         } else {
-            $table = 'projects';
+            $table = 'project';
             $data = [
                 'name' => $project->name,
                 'description' => $project->description,
@@ -176,7 +176,7 @@ class ProjectService implements ProjectServiceInterface
                 'education' => $project->education
             ];
         }
-        $newId = DB::table('project')->insertGetId($data);
+        $newId = DB::table($table)->insertGetId($data);
         
         // laraval doesn't do expressions well in above syntax, so do it seperate!
         DB::update('update ' . $table . " set location = ST_GeomFromText('POINT(? ?)') where id = ?", [
